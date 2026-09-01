@@ -4,7 +4,7 @@
 
 resource "aws_security_group" "alb" {
   name   = "terraform-alb-sg"
-  vpc_id = aws_vpc.main.id
+  vpc_id = module.network.vpc_id
 
   ingress {
     description = "HTTP from internet"
@@ -33,7 +33,7 @@ resource "aws_security_group" "alb" {
 
 resource "aws_security_group" "app" {
   name   = "terraform-app-sg"
-  vpc_id = aws_vpc.main.id
+  vpc_id = module.network.vpc_id
 
   ingress {
     description     = "HTTP from ALB"
@@ -63,7 +63,7 @@ resource "aws_security_group" "app" {
 resource "aws_security_group" "db" {
   name        = "terraform-db-sg"
   description = "Allow PostgreSQL from application tier"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.network.vpc_id
 
   ingress {
     description     = "PostgreSQL from application servers"

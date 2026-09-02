@@ -77,3 +77,13 @@ moved {
   from = aws_vpc.main
   to   = module.network.aws_vpc.main
 }
+
+moved {
+  from = module.network.aws_subnet.public_a
+  to   = module.network.aws_subnet.public["public_a"]
+}
+
+moved {
+  from = module.network.aws_subnet.public_b
+  to   = module.network.aws_subnet.public["public_b"]
+}

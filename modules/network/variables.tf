@@ -13,6 +13,15 @@ variable "public_subnet_b_cidr" {
   type        = string
 }
 
+variable "public_subnets" {
+  description = "Configuration for public subnets"
+
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
+}
+
 variable "private_subnet_a_cidr" {
   description = "CIDR block for private application subnet A"
   type        = string

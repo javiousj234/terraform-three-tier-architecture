@@ -16,28 +16,18 @@ resource "aws_vpc" "main" {
 # PUBLIC SUBNETS
 # ============================================================
 
-resource "aws_subnet" "public_a" {
+resource "aws_subnet" "public" {
+  for_each = var.public_subnets
+
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_a_cidr
-  availability_zone       = var.availability_zone_a
+  cidr_block              = each.value.cidr
+  availability_zone       = each.value.az
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "terraform-public-a"
+    Name = "terraform-${replace(each.key, "_", "-")}"
   }
 }
-
-resource "aws_subnet" "public_b" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = var.public_subnet_b_cidr
-  availability_zone       = var.availability_zone_b
-  map_public_ip_on_launch = true
-
-  tags = {
-    Name = "terraform-public-b"
-  }
-}
-
 
 # ============================================================
 # PRIVATE APPLICATION SUBNETS
@@ -120,7 +110,8 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public_a.id
+  subnet_id     = aws_subnet.public["public_a"].id
+
 
   depends_on = [aws_internet_gateway.igw]
 
@@ -148,12 +139,14 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public_a" {
-  subnet_id      = aws_subnet.public_a.id
+  subnet_id = aws_subnet.public["public_a"].id
+
   route_table_id = aws_route_table.public.id
 }
 
 resource "aws_route_table_association" "public_b" {
-  subnet_id      = aws_subnet.public_b.id
+  subnet_id = aws_subnet.public["public_b"].id
+
   route_table_id = aws_route_table.public.id
 }
 

@@ -6,6 +6,17 @@ module "network" {
   public_subnet_a_cidr = var.public_subnet_a_cidr
   public_subnet_b_cidr = var.public_subnet_b_cidr
 
+  public_subnets = {
+    public_a = {
+      cidr = var.public_subnet_a_cidr
+      az   = var.availability_zone_a
+    }
+
+    public_b = {
+      cidr = var.public_subnet_b_cidr
+      az   = var.availability_zone_b
+    }
+  }
   private_subnet_a_cidr = var.private_subnet_a_cidr
   private_subnet_b_cidr = var.private_subnet_b_cidr
 

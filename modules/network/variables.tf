@@ -3,15 +3,6 @@ variable "vpc_cidr" {
   type        = string
 }
 
-variable "public_subnet_a_cidr" {
-  description = "CIDR block for public subnet A"
-  type        = string
-}
-
-variable "public_subnet_b_cidr" {
-  description = "CIDR block for public subnet B"
-  type        = string
-}
 
 variable "public_subnets" {
   description = "Configuration for public subnets"
@@ -22,32 +13,20 @@ variable "public_subnets" {
   }))
 }
 
-variable "private_subnet_a_cidr" {
-  description = "CIDR block for private application subnet A"
-  type        = string
+variable "private_subnets" {
+  description = "Configuration for private application subnets"
+
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
 }
 
-variable "private_subnet_b_cidr" {
-  description = "CIDR block for private application subnet B"
-  type        = string
-}
+variable "db_subnets" {
+  description = "Configuration for database subnets"
 
-variable "db_subnet_a_cidr" {
-  description = "CIDR block for database subnet A"
-  type        = string
-}
-
-variable "db_subnet_b_cidr" {
-  description = "CIDR block for database subnet B"
-  type        = string
-}
-
-variable "availability_zone_a" {
-  description = "First availability zone"
-  type        = string
-}
-
-variable "availability_zone_b" {
-  description = "Second availability zone"
-  type        = string
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
 }

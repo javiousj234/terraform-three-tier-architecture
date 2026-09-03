@@ -4,15 +4,15 @@
 
 output "alb_dns_name" {
   description = "DNS name of the Application Load Balancer"
-  value       = aws_lb.app.dns_name
+  value       = module.load_balancer.alb_dns_name
 }
 
 output "db_endpoint" {
-  description = "RDS PostgreSQL endpoint"
-  value       = aws_db_instance.app.address
+  description = "RDS database endpoint"
+  value       = module.database.db_endpoint
 }
 
 output "db_port" {
-  description = "RDS PostgreSQL port"
-  value       = aws_db_instance.app.port
+  description = "RDS database port"
+  value       = module.database.db_port
 }

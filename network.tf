@@ -3,9 +3,6 @@ module "network" {
 
   vpc_cidr = var.vpc_cidr
 
-  public_subnet_a_cidr = var.public_subnet_a_cidr
-  public_subnet_b_cidr = var.public_subnet_b_cidr
-
   public_subnets = {
     public_a = {
       cidr = var.public_subnet_a_cidr
@@ -17,12 +14,30 @@ module "network" {
       az   = var.availability_zone_b
     }
   }
-  private_subnet_a_cidr = var.private_subnet_a_cidr
-  private_subnet_b_cidr = var.private_subnet_b_cidr
 
-  db_subnet_a_cidr = var.db_subnet_a_cidr
-  db_subnet_b_cidr = var.db_subnet_b_cidr
+  private_subnets = {
+    private_a = {
+      cidr = var.private_subnet_a_cidr
+      az   = var.availability_zone_a
+    }
 
-  availability_zone_a = var.availability_zone_a
-  availability_zone_b = var.availability_zone_b
+    private_b = {
+      cidr = var.private_subnet_b_cidr
+      az   = var.availability_zone_b
+    }
+  }
+
+  db_subnets = {
+    db_a = {
+      cidr = var.db_subnet_a_cidr
+      az   = var.availability_zone_a
+    }
+
+    db_b = {
+      cidr = var.db_subnet_b_cidr
+      az   = var.availability_zone_b
+    }
+  }
+
+
 }

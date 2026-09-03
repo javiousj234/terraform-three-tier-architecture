@@ -98,3 +98,10 @@ variable "db_allocated_storage" {
   type        = number
 
 }
+
+variable "alert_email" {
+  type        = string
+  description = "Email address for infrastructure alerts"
+}
+
+

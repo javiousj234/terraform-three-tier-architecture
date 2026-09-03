@@ -14,16 +14,18 @@ output "public_subnet_ids" {
 
 output "private_subnet_ids" {
   description = "IDs of the private application subnets"
+
   value = [
-    aws_subnet.private_a.id,
-    aws_subnet.private_b.id
+    aws_subnet.private["private_a"].id,
+    aws_subnet.private["private_b"].id
   ]
 }
 
 output "db_subnet_ids" {
   description = "IDs of the database subnets"
+
   value = [
-    aws_subnet.db_a.id,
-    aws_subnet.db_b.id
+    aws_subnet.db["db_a"].id,
+    aws_subnet.db["db_b"].id
   ]
 }
